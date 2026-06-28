@@ -7,3 +7,15 @@ cd ../frontend && npm ci && npm run build
 sudo cp ~/Jobsense.ai/deploy/jobsense.service /etc/systemd/system/
 sudo systemctl daemon-reload && sudo systemctl enable --now jobsense
 ps aux | grep uvicorn
+
+
+After changing both at the same time
+cd ~/Jobsense.ai
+git pull
+
+cd frontend && npm ci && npm run build && cd ..
+
+sudo systemctl restart jobsense
+sudo systemctl status jobsense
+
+sudo journalctl -u jobsense -n 50 --no-pager
