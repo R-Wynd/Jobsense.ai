@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Blue gradient background matching the image -->
+    <radialGradient id="bg" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#6b93f5"/>
+      <stop offset="100%" stop-color="#3452d9"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="115" ry="115" fill="url(#bg)"/>
+
+  <!-- ── Briefcase ── -->
+  <!-- Handle (rounded rectangle, centred, top) -->
+  <rect x="188" y="138" width="136" height="76" rx="28" ry="28" fill="white"/>
+  <!-- Handle inner cutout (blue = shows through) -->
+  <rect x="212" y="162" width="88" height="60" rx="16" ry="16" fill="#3a58e0"/>
+
+  <!-- Main body -->
+  <rect x="124" y="196" width="264" height="218" rx="28" ry="28" fill="white"/>
+
+  <!-- Horizontal belt line across the middle -->
+  <rect x="124" y="294" width="264" height="18" rx="0" fill="#3a58e0"/>
+
+  <!-- Latch / buckle square at centre of belt -->
+  <rect x="232" y="284" width="48" height="38" rx="8" ry="8" fill="#3a58e0"/>
+  <!-- Latch inner highlight -->
+  <rect x="242" y="294" width="28" height="18" rx="4" ry="4" fill="#5572ee"/>
+
+  <!-- ── 4-point sparkle star (top-right of briefcase) ── -->
+  <!-- Drawn as two thin diamond shapes overlaid -->
+  <g transform="translate(363,168)">
+    <!-- Vertical spike -->
+    <ellipse cx="0" cy="0" rx="8"  ry="44" fill="white"/>
+    <!-- Horizontal spike -->
+    <ellipse cx="0" cy="0" rx="44" ry="8"  fill="white"/>
+    <!-- Diagonal spike 1 -->
+    <ellipse cx="0" cy="0" rx="5"  ry="28" fill="white" transform="rotate(45)"/>
+    <!-- Diagonal spike 2 -->
+    <ellipse cx="0" cy="0" rx="5"  ry="28" fill="white" transform="rotate(-45)"/>
+  </g>
+</svg>
