@@ -1,0 +1,34 @@
+# ── Unrelated local projects (not part of JobSense) ──
+/AI-Resume-Optimizer/
+/geeksprep-ats-resume-roast/
+/JobSpy/
+/.kiro/
+/.vscode/
+
+# ── Personal documents (keep out of the repo) ──
+/Aravind_SRE_Master_Resume.pdf
+/frsh-contribution.md
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+.jobspy-venv/
+*.egg-info/
+
+# ── Node ──
+node_modules/
+dist/
+build/
+
+# ── Secrets & local data ──
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite3
+
+# ── OS / editor ──
+.DS_Store
+*.swp
