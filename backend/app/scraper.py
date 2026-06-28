@@ -8,6 +8,7 @@ Changes from scrape_runner.py applied here:
   - Expanded CORE_TECH_PATTERNS to cover Go, operators, PITR, AI/ML, workflow
 """
 
+import os
 import re
 import sys
 import logging
@@ -20,8 +21,12 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-JOBSPY_PATH = "/Users/avenkedeshwaran/IITMBS/Job-sense/JobSpy"
-if JOBSPY_PATH not in sys.path:
+# The scraper uses the `jobspy` package (install: `pip install python-jobspy`).
+# Optionally point JOBSPY_PATH at a local JobSpy checkout/fork; otherwise the
+# pip-installed package is used. No hardcoded machine-specific path — this keeps
+# the app working regardless of where the project lives or is deployed.
+JOBSPY_PATH = os.getenv("JOBSPY_PATH")
+if JOBSPY_PATH and os.path.isdir(JOBSPY_PATH) and JOBSPY_PATH not in sys.path:
     sys.path.insert(0, JOBSPY_PATH)
 
 
