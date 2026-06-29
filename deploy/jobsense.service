@@ -4,12 +4,12 @@ After=network.target
 
 [Service]
 User=ubuntu
-WorkingDirectory=/home/ubuntu/Job-sense/jobsense-app/backend
+WorkingDirectory=/home/ubuntu/Jobsense.ai/backend
 # Persist SQLite + resumes outside the repo so redeploys/pulls don't wipe data.
 Environment=DATABASE_URL=sqlite:////home/ubuntu/jobsense-data/jobsense.db
 # IMPORTANT: single worker only. Multiple workers = multiple scheduler threads
 # = duplicate scheduled runs. Do NOT add --workers.
-ExecStart=/home/ubuntu/Job-sense/jobsense-app/backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
+ExecStart=/home/ubuntu/Jobsense.ai/backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=3
 

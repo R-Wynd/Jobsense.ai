@@ -13,6 +13,7 @@ import re
 import sys
 import logging
 import time
+from pathlib import Path
 from dataclasses import dataclass, field
 from datetime import date
 from typing import Optional
@@ -21,11 +22,12 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-# The scraper uses the `jobspy` package (install: `pip install python-jobspy`).
-# Optionally point JOBSPY_PATH at a local JobSpy checkout/fork; otherwise the
-# pip-installed package is used. No hardcoded machine-specific path — this keeps
-# the app working regardless of where the project lives or is deployed.
-JOBSPY_PATH = os.getenv("JOBSPY_PATH")
+# Use the local JobSpy checkout shipped with the project (sibling of backend/),
+# computed relative to this file so it survives the project being moved/renamed.
+# Override with the JOBSPY_PATH env var; if the dir is absent (e.g. a minimal
+# deploy), it falls back to the pip-installed `python-jobspy` package.
+_DEFAULT_JOBSPY = Path(__file__).resolve().parents[2] / "JobSpy"
+JOBSPY_PATH = os.getenv("JOBSPY_PATH", str(_DEFAULT_JOBSPY))
 if JOBSPY_PATH and os.path.isdir(JOBSPY_PATH) and JOBSPY_PATH not in sys.path:
     sys.path.insert(0, JOBSPY_PATH)
 

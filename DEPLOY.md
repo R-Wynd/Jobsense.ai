@@ -65,26 +65,26 @@ sudo apt install -y python3.12-venv python3-pip nodejs npm git \
 
 ### 3. Get the code + persistent data dir
 ```bash
-git clone <your-repo-url> ~/Job-sense
+git clone https://github.com/R-Wynd/Jobsense.ai.git ~/Jobsense.ai
 mkdir -p ~/jobsense-data
 ```
 
 ### 4. Backend venv
 ```bash
-cd ~/Job-sense/jobsense-app/backend
+cd ~/Jobsense.ai/backend
 python3.12 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt python-jobspy weasyprint markdown2
+pip install -r requirements.txt weasyprint markdown2
 ```
 
 ### 5. Build the frontend (served by the backend)
 ```bash
-cd ~/Job-sense/jobsense-app/frontend
+cd ~/Jobsense.ai/frontend
 npm ci && npm run build      # do NOT set VITE_API_URL → uses same-origin /api
 ```
 
 ### 6. Run always-on with systemd
 ```bash
-sudo cp ~/Job-sense/jobsense-app/deploy/jobsense.service /etc/systemd/system/
+sudo cp ~/Jobsense.ai/deploy/jobsense.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now jobsense
 sudo systemctl status jobsense           # should be active (running)
@@ -94,11 +94,13 @@ Open **`http://<ELASTIC-IP>:8000`** on your phone → "Add to Home Screen".
 > Optional port 80: `sudo apt install -y nginx` and reverse-proxy `/` → `127.0.0.1:8000`,
 > then open SG port 80 instead of 8000.
 
-### Update after code changes
+### Update + restart after pushing code changes
 ```bash
-cd ~/Job-sense && git pull
-cd jobsense-app/frontend && npm run build
+cd ~/Jobsense.ai && git pull
+cd backend && source venv/bin/activate && pip install -r requirements.txt   # if deps changed
+cd ../frontend && npm ci && npm run build                                   # if UI changed
 sudo systemctl restart jobsense
+sudo systemctl status jobsense
 ```
 
 ### Notes
@@ -118,7 +120,7 @@ sudo systemctl restart jobsense
 1. Push this repo to GitHub.
 2. Render → **New → Web Service** → connect the repo.
 3. Settings:
-   - **Root Directory:** `jobsense-app/backend`
+   - **Root Directory:** `backend`
    - **Runtime:** Docker (it auto-detects `Dockerfile`)
    - **Instance:** Free is fine to start
 4. **Add a Persistent Disk** (so SQLite + resumes survive redeploys):
@@ -136,7 +138,7 @@ sudo systemctl restart jobsense
 
 1. Vercel → **Add New → Project** → import the repo.
 2. Settings:
-   - **Root Directory:** `jobsense-app/frontend`
+   - **Root Directory:** `frontend`
    - **Framework Preset:** Vite (auto-detected)
    - **Build:** `npm run build` · **Output:** `dist`
 3. **Environment variable:**
