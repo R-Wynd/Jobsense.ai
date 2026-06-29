@@ -5,8 +5,9 @@ After=network.target
 [Service]
 User=ubuntu
 WorkingDirectory=/home/ubuntu/Jobsense.ai/backend
-# Persist SQLite + resumes outside the repo so redeploys/pulls don't wipe data.
-Environment=DATABASE_URL=sqlite:////home/ubuntu/jobsense-data/jobsense.db
+# SQLite lives inside the backend dir. *.db is gitignored, so `git pull` won't
+# touch it — data persists across redeploys.
+Environment=DATABASE_URL=sqlite:////home/ubuntu/Jobsense.ai/backend/jobsense.db
 # IMPORTANT: single worker only. Multiple workers = multiple scheduler threads
 # = duplicate scheduled runs. Do NOT add --workers.
 ExecStart=/home/ubuntu/Jobsense.ai/backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000

@@ -1,11 +1,19 @@
 sudo apt update && sudo apt install -y python3.12-venv nodejs npm git     libpango-1.0-0 libpangocairo-1.0-0 libcairo2 libgdk-pixbuf-2.0-0 shared-mime-info fonts-dejavu
+
 git clone https://github.com/R-Wynd/Jobsense.ai.git
+
 cd Jobsense.ai/backend
+
 python3.12 -m venv venv && source venv/bin/activate
+
 pip install -r requirements.txt python-jobspy weasyprint markdown2
+
 cd ../frontend && npm ci && npm run build
+
 sudo cp ~/Jobsense.ai/deploy/jobsense.service /etc/systemd/system/
+
 sudo systemctl daemon-reload && sudo systemctl enable --now jobsense
+
 ps aux | grep uvicorn
 
 

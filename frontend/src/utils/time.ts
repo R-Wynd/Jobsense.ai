@@ -16,8 +16,12 @@ function toUtcDate(value: string): Date {
   if (value.includes('+') || value.endsWith('Z')) {
     return new Date(value)
   }
-  // Bare string (legacy) — append Z so JS treats it as UTC
-  return new Date(value + 'Z')
+  // Date-only "YYYY-MM-DD" — Safari rejects "YYYY-MM-DDZ", so add a time.
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return new Date(value + 'T00:00:00Z')
+  }
+  // Bare datetime — normalise the space separator (Safari needs 'T') and mark UTC.
+  return new Date(value.replace(' ', 'T') + 'Z')
 }
 
 /** "28 Jun 2026, 11:34 AM" */
@@ -72,7 +76,9 @@ export function toISTTime(value: string | null | undefined): string {
 export function relativeIST(value: string | null | undefined): string {
   if (!value) return '—'
   try {
-    const diff = Date.now() - toUtcDate(value).getTime()
+    const t = toUtcDate(value).getTime()
+    if (isNaN(t)) return '—'
+    const diff = Date.now() - t
     if (diff < 0) return 'just now'
     const m = Math.floor(diff / 60_000)
     if (m < 1) return 'just now'
