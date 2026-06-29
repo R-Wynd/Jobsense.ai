@@ -11,6 +11,7 @@ export interface StatusMeta {
 
 export const APPLICATION_STATUSES: StatusMeta[] = [
   { value: 'not_applied',    label: 'Not Applied',    badge: 'bg-slate-100 text-slate-600' },
+  { value: 'skipped',        label: 'Skip',           badge: 'bg-rose-100 text-rose-600' },
   { value: 'applied',        label: 'Applied',        badge: 'bg-green-100 text-green-700' },
   { value: 'round_1',        label: 'Round 1',        badge: 'bg-indigo-100 text-indigo-700' },
   { value: 'round_2',        label: 'Round 2',        badge: 'bg-indigo-100 text-indigo-700' },

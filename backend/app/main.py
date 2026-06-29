@@ -181,10 +181,11 @@ def update_job_status(job_id: str, body: JobStatusUpdate, db: Session = Depends(
 
     status = STATUS_ALIASES.get(body.application_status, body.application_status)
     fields = {"application_status": status}
-    if status == "not_applied":
+    if status in ("not_applied", "skipped"):
+        # Pre-application states — no applied date.
         fields["applied_at"] = None
     elif existing.applied_at is None:
-        # First time it leaves "not_applied" — stamp the application date.
+        # First time it enters an applied/interview stage — stamp the date.
         fields["applied_at"] = datetime.utcnow()
 
     job = job_repo.update_job(job_id, **fields)

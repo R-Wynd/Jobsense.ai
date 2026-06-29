@@ -29,6 +29,7 @@ from typing import Optional
 # Canonical application statuses (order = pipeline order; drives UI dropdowns too).
 FUNNEL_STATUSES = [
     "not_applied",
+    "skipped",        # decided NOT to apply — sits outside the funnel
     "applied",
     "round_1",
     "round_2",
@@ -43,8 +44,8 @@ FUNNEL_STATUSES = [
     "withdrew",
 ]
 
-# Accept legacy "skipped" as a synonym for "withdrew".
-STATUS_ALIASES = {"skipped": "withdrew"}
+# No status aliases (skipped is now its own first-class status).
+STATUS_ALIASES: dict = {}
 
 # Regex pattern (used by the PATCH schema) covering every accepted status.
 STATUS_PATTERN = "^(" + "|".join(FUNNEL_STATUSES + list(STATUS_ALIASES)) + ")$"
@@ -110,6 +111,7 @@ def build_funnel(raw_counts: dict) -> dict:
         "offers": reach_offer,
         "rejected": c["rejected"],
         "ghosted": c["ghosted"],
+        "skipped": c["skipped"],
     }
 
     return {

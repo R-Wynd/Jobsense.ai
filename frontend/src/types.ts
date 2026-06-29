@@ -1,5 +1,6 @@
 export type ApplicationStatus =
   | 'not_applied'
+  | 'skipped'
   | 'applied'
   | 'round_1'
   | 'round_2'

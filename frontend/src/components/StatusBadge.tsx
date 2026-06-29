@@ -3,7 +3,6 @@ import { STATUS_BADGES, STATUS_LABELS } from '../utils/status'
 
 const STATUS_STYLES: Record<string, string> = {
   ...STATUS_BADGES,
-  skipped: 'bg-amber-100 text-amber-800', // legacy alias of "withdrew"
   scraped: 'bg-blue-50 text-blue-600',
   tailoring: 'bg-purple-100 text-purple-700',
   scored: 'bg-cyan-100 text-cyan-700',
@@ -16,7 +15,6 @@ const STATUS_STYLES: Record<string, string> = {
 
 const LABELS: Record<string, string> = {
   ...STATUS_LABELS,
-  skipped: 'Withdrew',
   scraped: 'Scraped',
   tailoring: 'Tailoring',
   scored: 'Scored',
